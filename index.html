@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#005745">
+<title>Newbury North · Construction Workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{
+  --green:#005745; --green-deep:#003d31; --green-tint:#f1f7f3; --green-mist:#dee8e2; --green-soft:#e7efeb;
+  --gold:#b08940; --gold-deep:#8c6a2a; --gold-soft:#f7eed8;
+  --clay:#b86a45; --clay-soft:#fbeadd;
+  --ink:#1f1f1f; --graphite:#3a3a3a; --muted:#7c7c7c; --line:rgba(0,87,69,0.16); --rule:rgba(0,87,69,0.18);
+  --cream:#faf8f3; --paper:#ffffff;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --display:'Cinzel',serif;
+  --sans:'Inter',system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.04), 0 18px 44px -24px rgba(0,40,30,.20);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--cream);color:var(--graphite);font-family:var(--serif);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+a{color:var(--green);text-decoration:none}
+a:hover{color:var(--gold-deep)}
+
+/* ============== HEADER ============== */
+header.masthead{background:var(--green);color:#fff;padding:22px 0 0;position:sticky;top:0;z-index:50;box-shadow:0 2px 18px rgba(0,40,30,.18)}
+.mast-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.mast-brand{display:flex;align-items:center;gap:14px;flex:none}
+.mast-mark{width:42px;height:42px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:500;font-size:16px;letter-spacing:.08em}
+.mast-name{font-family:var(--display);font-weight:500;font-size:12px;letter-spacing:.22em;color:#fff;text-transform:uppercase}
+.mast-name span{display:block;font-family:var(--serif);font-style:italic;font-size:13px;letter-spacing:.04em;color:rgba(255,255,255,.78);text-transform:none;margin-top:3px}
+.mast-spacer{flex:1}
+.mast-project{display:flex;align-items:center;gap:10px;flex:none}
+.mast-project label{font-family:var(--display);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:500}
+.mast-project select{font-family:var(--serif);font-size:17px;color:#fff;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.28);border-bottom:2px solid var(--gold);padding:9px 14px;cursor:pointer;appearance:none;border-radius:2px;min-width:240px}
+.mast-project select:focus{outline:none;border-bottom-color:#fff}
+.mast-project select option{background:var(--green);color:#fff}
+
+nav.tabs{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;gap:0;margin-top:18px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{flex:none;background:transparent;border:none;cursor:pointer;font-family:var(--display);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.66);padding:14px 18px;border-bottom:2px solid transparent;transition:all .25s ease;font-weight:500;white-space:nowrap}
+nav.tabs button:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav.tabs button.on{color:#fff;border-bottom-color:var(--gold);background:rgba(255,255,255,.04)}
+
+/* ============== TODAY TAB ============== */
+.today-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.today-card{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--green);padding:22px 24px;border-radius:6px}
+.today-card.today-wide{grid-column:1/-1}
+.today-card .lbl{margin-bottom:14px}
+.today-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-top:8px}
+.today-photos .t{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--green-mist)}
+.today-photos .t img{width:100%;height:100%;object-fit:cover;display:block}
+.today-photos .t .x{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;border:none;font-size:15px;cursor:pointer;padding:0;line-height:1}
+.addphoto{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1.5px dashed var(--line);border-radius:8px;padding:16px;background:var(--green-tint);color:var(--green);font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.addphoto:hover{background:var(--green-mist)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{font-family:var(--serif);font-size:16px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);padding:9px 14px;border-radius:999px;cursor:pointer;user-select:none;transition:all .12s ease}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.chip.add{border-style:dashed;color:var(--green);font-family:var(--sans);font-size:13px;font-weight:600}
+.today-preview{font-family:var(--serif);font-size:18px;color:var(--graphite);margin:0}
+.today-preview b{color:var(--ink)}
+.today-summary{background:var(--green-tint);border-left-color:var(--gold)}
+
+/* ============== LAYOUT ============== */
+section.panel{display:none}
+section.panel.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.container{max-width:1280px;margin:0 auto;padding:46px 32px 80px}
+.section-head{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:baseline;padding-bottom:18px;margin-bottom:30px;border-bottom:2px solid var(--gold)}
+.section-num{font-family:var(--display);font-size:13px;letter-spacing:.22em;color:var(--gold-deep)}
+.section-title{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,42px);line-height:1.1;color:var(--green-deep);margin:0}
+.section-title em{font-style:italic;color:var(--gold-deep)}
+.section-sub{grid-column:2;font-size:17px;color:var(--graphite);max-width:760px;margin-top:8px;font-style:italic}
+.section-act{align-self:center;display:flex;gap:10px;flex-wrap:wrap}
+
+/* ============== BUTTONS ============== */
+.btn{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer;padding:11px 18px;transition:all .2s ease;border-radius:2px}
+.btn.green{background:var(--green);color:#fff}
+.btn.green:hover{background:var(--green-deep)}
+.btn.gold{background:var(--gold);color:#fff}
+.btn.gold:hover{background:var(--gold-deep)}
+.btn.ghost{background:var(--paper);border:1px solid var(--green);color:var(--green)}
+.btn.ghost:hover{background:var(--green-tint)}
+.btn.danger{background:var(--paper);border:1px solid var(--clay);color:var(--clay)}
+.btn.danger:hover{background:var(--clay-soft)}
+.btn.sm{font-size:10px;padding:7px 12px;letter-spacing:.08em}
+
+/* ============== EMPTY STATES ============== */
+.empty{text-align:center;color:var(--muted);font-style:italic;font-size:18px;padding:54px 20px;border:1px dashed var(--line);border-radius:10px;background:var(--paper)}
+.empty .hint{display:block;font-family:var(--sans);font-style:normal;font-size:13px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+
+/* ============== LABELS ============== */
+.lbl{font-family:var(--display);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);font-weight:500;margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.lbl::before{content:"";width:22px;height:2px;background:var(--gold);flex:none}
+
+/* ============== FORMS ============== */
+input[type=text],input[type=date],input[type=email],input[type=tel],select,textarea{
+  width:100%;font-family:var(--serif);font-size:17px;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:6px;padding:11px 14px;line-height:1.5;outline:none
+}
+input:focus,select:focus,textarea:focus{border-color:var(--green)}
+textarea{resize:vertical;min-height:100px}
+.field{margin:0 0 18px}
+.field-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:0 0 18px}
+
+/* ============== PROJECTS GRID ============== */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.proj-card{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--green);padding:22px 24px;display:flex;flex-direction:column;gap:8px;transition:all .25s ease;position:relative}
+.proj-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--gold);border-left-color:var(--gold)}
+.proj-card .phase{font-family:var(--display);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);font-weight:500}
+.proj-card .addr{font-family:var(--serif);font-size:26px;color:var(--green-deep);font-weight:500;line-height:1.1;margin:0}
+.proj-card .meta{display:flex;gap:18px;font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:4px}
+.proj-card .meta b{color:var(--green);font-weight:600}
+.proj-card .acts{display:flex;gap:8px;margin-top:14px}
+.proj-card .archived{position:absolute;top:14px;right:14px;font-family:var(--display);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);background:var(--cream);padding:3px 8px;border:1px solid var(--line)}
+
+/* ============== ADD-INLINE FORM ============== */
+.add-inline{background:var(--green-tint);border:1px dashed var(--line);border-radius:8px;padding:18px 20px;margin:0 0 22px}
+.add-inline h4{font-family:var(--display);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin:0 0 12px}
+.add-inline .row{display:grid;grid-template-columns:2fr 1fr auto;gap:10px;align-items:end}
+@media(max-width:680px){.add-inline .row{grid-template-columns:1fr}}
+
+/* ============== TIMELINE ============== */
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--green-mist)}
+.tl-day{margin:0 0 32px}
+.tl-day .date{font-family:var(--display);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);position:relative;margin:0 0 14px;font-weight:500}
+.tl-day .date::before{content:"";position:absolute;left:-30px;top:5px;width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid var(--cream)}
+.tl-entry{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:6px;padding:18px 22px;margin:0 0 12px}
+.tl-entry .who{font-family:var(--display);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin:0 0 6px}
+.tl-entry .notes{margin:0 0 10px;color:var(--ink);font-size:17px}
+.tl-entry .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:8px}
+.tl-entry .photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;cursor:zoom-in}
+
+/* ============== PHOTO LIBRARY ============== */
+.lib-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 22px;padding:16px 18px;background:var(--paper);border:1px solid var(--line);border-radius:6px}
+.lib-toolbar input[type=text]{flex:1;min-width:200px;max-width:340px}
+.lib-toolbar .tag-filter{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.tag-chip{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--green);background:var(--green-tint);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;transition:all .18s}
+.tag-chip:hover{background:var(--green);color:#fff;border-color:var(--green)}
+.tag-chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.tag-chip.gold{color:var(--gold-deep);background:var(--gold-soft);border-color:var(--gold)}
+.tag-chip.gold.on{background:var(--gold);color:#fff}
+
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.photo-cell{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--green-mist);aspect-ratio:4/3;cursor:pointer}
+.photo-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.photo-cell:hover img{transform:scale(1.06)}
+.photo-cell.sel{outline:3px solid var(--gold);outline-offset:-3px}
+.photo-cell .tags{position:absolute;left:6px;bottom:6px;display:flex;gap:4px;flex-wrap:wrap;max-width:calc(100% - 12px);pointer-events:none}
+.photo-cell .tags span{font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:.04em;color:#fff;background:rgba(0,61,49,.82);padding:2px 7px;border-radius:3px}
+.photo-cell .checkbox{position:absolute;top:6px;left:6px;width:22px;height:22px;border-radius:4px;background:rgba(255,255,255,.92);border:1.5px solid var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:700;color:var(--green);font-size:13px}
+.photo-cell.sel .checkbox{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(8,20,16,.94);z-index:60;display:none;align-items:center;justify-content:center;padding:30px}
+.lightbox.on{display:flex}
+.lightbox img{max-width:88vw;max-height:72vh;object-fit:contain;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lb-panel{position:absolute;right:30px;top:50%;transform:translateY(-50%);width:300px;max-width:36vw;background:var(--paper);border-radius:8px;padding:22px;max-height:78vh;overflow-y:auto}
+.lb-panel h5{font-family:var(--display);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 10px}
+.lb-panel textarea{min-height:70px;font-size:15px}
+.lb-panel .tagrow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.lb-close{position:absolute;top:20px;right:22px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;cursor:pointer;width:44px;height:44px;font-size:26px;border-radius:50%}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;font-size:30px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;cursor:pointer;border-radius:50%}
+.lb-prev{left:18px}.lb-next{right:18px}
+@media(max-width:780px){.lb-panel{position:static;width:auto;max-width:88vw;margin-top:14px;transform:none}}
+
+/* ============== PUNCH LIST ============== */
+.punch-grid{display:flex;flex-direction:column;gap:10px}
+.punch-item{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--gold);padding:14px 18px;border-radius:6px}
+.punch-item.done{opacity:.58;border-left-color:var(--green)}
+.punch-item.done .title{text-decoration:line-through}
+.punch-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--green);background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:700;color:transparent;font-size:14px}
+.punch-item.done .punch-check{background:var(--green);color:#fff}
+.punch-meta{display:flex;flex-direction:column;gap:3px}
+.punch-meta .title{font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500}
+.punch-meta .sub{font-family:var(--sans);font-size:12px;color:var(--muted)}
+.punch-meta .sub b{color:var(--gold-deep);font-weight:600}
+.punch-prio{font-family:var(--display);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--line);border-radius:3px;color:var(--graphite);background:var(--paper)}
+.punch-prio.high{color:var(--clay);border-color:var(--clay)}
+.punch-prio.med{color:var(--gold-deep);border-color:var(--gold)}
+.punch-prio.low{color:var(--muted)}
+
+/* ============== SUBMITTALS ============== */
+.sub-table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.sub-table th{font-family:var(--display);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);text-align:left;padding:14px 16px;background:var(--green-tint);border-bottom:1px solid var(--line);font-weight:500}
+.sub-table td{padding:14px 16px;border-bottom:1px solid var(--line);font-size:16px;vertical-align:top}
+.sub-table tr:last-child td{border-bottom:none}
+.sub-status{font-family:var(--display);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px;border-radius:3px;color:#fff;font-weight:500;display:inline-block}
+.sub-status.submitted{background:var(--gold)}
+.sub-status.approved{background:var(--green)}
+.sub-status.revised{background:var(--clay)}
+.sub-status.rejected{background:var(--clay);opacity:.7}
+@media(max-width:780px){.sub-table thead{display:none}.sub-table tr{display:block;border-bottom:1px solid var(--line);padding:14px 16px}.sub-table td{display:block;padding:4px 0;border:none}}
+
+/* ============== CLIENT REPORT ============== */
+.report-builder{display:grid;grid-template-columns:340px 1fr;gap:24px}
+@media(max-width:880px){.report-builder{grid-template-columns:1fr}}
+.report-side{background:var(--paper);border:1px solid var(--line);padding:24px;border-radius:6px;height:fit-content;position:sticky;top:160px}
+.report-preview{background:var(--paper);border:1px solid var(--line);padding:36px 44px;border-radius:6px;min-height:600px}
+.report-preview h1{font-family:var(--serif);font-weight:400;font-size:32px;color:var(--green-deep);margin:0 0 4px;letter-spacing:.01em}
+.report-preview .kicker{font-family:var(--display);font-size:10px;letter-spacing:.28em;color:var(--gold-deep);text-transform:uppercase;margin:0 0 6px}
+.report-preview .dek{font-style:italic;color:var(--graphite);font-size:18px;margin:0 0 22px}
+.report-preview hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.report-preview .cover{font-size:17px;line-height:1.7;color:var(--graphite);white-space:pre-wrap}
+.report-preview .photo-block{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:18px 0}
+.report-preview .photo-block img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);border-radius:4px}
+
+/* ============== CREW & TRADES ============== */
+.crew-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:0 0 30px}
+.crew-card{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--green);padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.crew-card .name{font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500}
+.crew-card .rm{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0}
+.crew-card .rm:hover{color:var(--clay)}
+
+.trade-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.trade-card{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--gold);padding:18px 20px;display:flex;flex-direction:column;gap:4px}
+.trade-card .trade{font-family:var(--display);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);font-weight:500}
+.trade-card .co{font-family:var(--serif);font-size:20px;color:var(--green-deep);font-weight:500}
+.trade-card .ct{font-family:var(--sans);font-size:13px;color:var(--graphite);margin-top:4px}
+.trade-card .acts{display:flex;gap:6px;margin-top:10px}
+
+/* ============== TOAST ============== */
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);background:var(--green);color:#fff;padding:13px 22px;border-radius:999px;font-family:var(--sans);font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:all .3s ease;z-index:80;box-shadow:0 8px 30px rgba(0,40,30,.3)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============== DEVICE BANNER ============== */
+.device-banner{background:var(--gold-soft);border-bottom:1px solid var(--gold);color:var(--gold-deep);font-family:var(--sans);font-size:12px;text-align:center;padding:8px 16px;letter-spacing:.02em}
+.device-banner b{color:var(--gold-deep)}
+
+/* ============== UTIL ============== */
+.row-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hint{font-family:var(--sans);font-size:12px;color:var(--muted);font-style:italic;margin-top:6px}
+.sub-link{font-family:var(--sans);font-size:13px;color:var(--green);text-decoration:underline;cursor:pointer}
+.sub-link:hover{color:var(--gold-deep)}
+
+@media(max-width:780px){
+  .container{padding:30px 18px 60px}
+  .mast-inner,nav.tabs{padding:0 18px}
+  .section-head{grid-template-columns:1fr;gap:8px}
+  .section-num{order:1}.section-title{order:2}.section-sub{order:3;grid-column:1}.section-act{order:4;align-self:flex-start;margin-top:6px}
+}
+</style>
+</head>
+<body>
+
+<div class="device-banner">
+  Data lives on <b>this device only</b>. Logs, photos, and punch items you file here aren't shared across phones or computers yet — team sync is coming.
+</div>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <div class="mast-brand">
+      <div class="mast-mark">NN</div>
+      <div class="mast-name">Newbury North Associates<span>Construction Workspace</span></div>
+    </div>
+    <div class="mast-spacer"></div>
+    <div class="mast-project">
+      <label>Project</label>
+      <select id="projectSelect">
+        <option value="">— All projects —</option>
+      </select>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button class="on" data-tab="today">Today</button>
+    <button data-tab="projects">Projects</button>
+    <button data-tab="timeline">Timeline</button>
+    <button data-tab="photos">Photos</button>
+    <button data-tab="punch">Punch List</button>
+    <button data-tab="submittals">Submittals</button>
+    <button data-tab="report">Report</button>
+    <button data-tab="crew">Crew</button>
+  </nav>
+</header>
+
+<!-- ============== TODAY ============== -->
+<section class="panel on" id="panel-today"><div class="container">
+  <div class="section-head">
+    <div class="section-num">○</div>
+    <h2 class="section-title"><em>Today</em> on site</h2>
+    <div class="section-act"><button class="btn green" id="finishDayBtn" disabled>Finish day → Word doc</button></div>
+    <p class="section-sub">File a daily log. Tell the story — the materials, the details. Photos, crew, and milestones from today.</p>
+  </div>
+
+  <div class="today-grid">
+    <div class="today-card">
+      <p class="lbl">Project</p>
+      <select id="todayProject" style="font-size:18px">
+        <option value="" disabled selected>Choose a project…</option>
+        <option value="__add">＋ Add a project…</option>
+      </select>
+      <input type="text" id="todayProjectNew" placeholder="Type the new project address" style="display:none;margin-top:10px">
+    </div>
+
+    <div class="today-card">
+      <p class="lbl">Date</p>
+      <input type="date" id="todayDate">
+    </div>
+
+    <div class="today-card today-wide">
+      <p class="lbl">Who's on site <span class="hint">Tap everyone here today</span></p>
+      <div class="chips" id="todayCrew"></div>
+    </div>
+
+    <div class="today-card today-wide">
+      <p class="lbl">Photos <span class="hint">Tap to open the camera or pick from your roll</span></p>
+      <div class="today-photos" id="todayThumbs"></div>
+      <label class="addphoto" for="todayPhotoInput" style="margin-top:12px">＋ Add photos</label>
+      <input type="file" id="todayPhotoInput" accept="image/*" capture="environment" multiple style="display:none">
+    </div>
+
+    <div class="today-card today-wide">
+      <p class="lbl">Milestones &amp; fun facts <span class="hint">What's worth telling? Special materials, where they came from, a detail nobody else does.</span></p>
+      <textarea id="todayNotes" placeholder="What happened today and what's the story…" style="min-height:140px"></textarea>
+    </div>
+
+    <div class="today-card today-wide today-summary">
+      <p class="lbl">End-of-day summary</p>
+      <p class="today-preview" id="todayPreview">Pick a project to get started.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============== PROJECTS ============== -->
+<section class="panel" id="panel-projects"><div class="container">
+  <div class="section-head">
+    <div class="section-num">I</div>
+    <h2 class="section-title">Active <em>Projects</em></h2>
+    <div class="section-act"><button class="btn green" id="newProjBtn">＋ New project</button></div>
+    <p class="section-sub">Every address NNA has on the books. The same canonical names that appear on the P-drive, the contract, and the SOV.</p>
+  </div>
+
+  <div class="add-inline" id="newProjForm" style="display:none">
+    <h4>Add a project</h4>
+    <div class="row">
+      <input type="text" id="newProjAddr" placeholder="e.g. 2500 Gordon">
+      <input type="text" id="newProjPhase" placeholder="Phase (Framing, Stone, Trim…)">
+      <button class="btn green" id="newProjSave">Add</button>
+    </div>
+  </div>
+
+  <div id="projGrid" class="proj-grid"></div>
+  <div id="projEmpty" class="empty" style="display:none">No projects yet. <span class="hint">Add one above — use the canonical address (e.g. "2500 Gordon"), same as the P-drive folder.</span></div>
+</div></section>
+
+<!-- ============== TIMELINE ============== -->
+<section class="panel" id="panel-timeline"><div class="container">
+  <div class="section-head">
+    <div class="section-num">II</div>
+    <h2 class="section-title">Project <em>Timeline</em></h2>
+    <p class="section-sub">The story of the build — every daily log and photo upload, in order. Read-only.</p>
+  </div>
+  <div id="timeline"></div>
+</div></section>
+
+<!-- ============== PHOTO LIBRARY ============== -->
+<section class="panel" id="panel-photos"><div class="container">
+  <div class="section-head">
+    <div class="section-num">III</div>
+    <h2 class="section-title">Photo <em>Library</em></h2>
+    <div class="section-act">
+      <label class="btn gold" for="photoUpload">＋ Upload photos</label>
+      <input id="photoUpload" type="file" accept="image/*" multiple style="display:none">
+      <label class="btn ghost" for="ccImport">Import from CompanyCam</label>
+      <input id="ccImport" type="file" accept=".zip" style="display:none">
+      <button class="btn ghost" id="sendLaurenBtn">Send selection to Lauren</button>
+    </div>
+    <p class="section-sub">Field photos organized by project. Tag, caption, lightbox, and forward the best to Lauren for social.</p>
+  </div>
+
+  <div class="lib-toolbar">
+    <input type="text" id="photoSearch" placeholder="Search captions…">
+    <div class="tag-filter" id="tagFilter"></div>
+  </div>
+
+  <div id="photoGrid" class="photo-grid"></div>
+  <div id="photoEmpty" class="empty" style="display:none">No photos yet for this project. <span class="hint">Upload a few above, or import a ZIP from CompanyCam.</span></div>
+</div></section>
+
+<!-- lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">×</button>
+  <button class="lb-prev" id="lbPrev">‹</button>
+  <button class="lb-next" id="lbNext">›</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-panel">
+    <h5>Caption</h5>
+    <textarea id="lbCaption" placeholder="A one-line story…"></textarea>
+    <h5 style="margin-top:14px">Tags</h5>
+    <div class="tagrow" id="lbTags"></div>
+    <h5 style="margin-top:14px">Project</h5>
+    <select id="lbProject"></select>
+    <div style="margin-top:14px;display:flex;gap:8px">
+      <button class="btn green sm" id="lbSave">Save</button>
+      <button class="btn danger sm" id="lbDelete">Delete photo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============== PUNCH LIST ============== -->
+<section class="panel" id="panel-punch"><div class="container">
+  <div class="section-head">
+    <div class="section-num">IV</div>
+    <h2 class="section-title">Punch <em>List</em></h2>
+    <div class="section-act"><button class="btn green" id="newPunchBtn">＋ New item</button></div>
+    <p class="section-sub">What's outstanding, what's done, who owns it. Filter by trade.</p>
+  </div>
+
+  <div class="add-inline" id="newPunchForm" style="display:none">
+    <h4>New punch-list item</h4>
+    <div class="field-row">
+      <div>
+        <p class="lbl">Title</p>
+        <input type="text" id="punchTitle" placeholder="e.g. Re-grout master shower">
+      </div>
+      <div>
+        <p class="lbl">Trade</p>
+        <input type="text" id="punchTrade" placeholder="e.g. Stone, Trim, Mech…">
+      </div>
+      <div>
+        <p class="lbl">Priority</p>
+        <select id="punchPrio">
+          <option value="low">Low</option>
+          <option value="med" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn green" id="punchSave">Add to list</button>
+  </div>
+
+  <div class="lib-toolbar">
+    <div class="tag-filter" id="punchTradeFilter"></div>
+  </div>
+
+  <div id="punchGrid" class="punch-grid"></div>
+  <div id="punchEmpty" class="empty" style="display:none">No open items. <span class="hint">When something needs doing, add it here so it doesn't get lost between sites.</span></div>
+</div></section>
+
+<!-- ============== SUBMITTALS ============== -->
+<section class="panel" id="panel-submittals"><div class="container">
+  <div class="section-head">
+    <div class="section-num">V</div>
+    <h2 class="section-title"><em>Submittals</em></h2>
+    <div class="section-act"><button class="btn green" id="newSubBtn">＋ New submittal</button></div>
+    <p class="section-sub">Material and spec approvals — name, vendor, status, notes. The paper trail of every approval that touches the build.</p>
+  </div>
+
+  <div class="add-inline" id="newSubForm" style="display:none">
+    <h4>New submittal</h4>
+    <div class="field-row">
+      <div>
+        <p class="lbl">Material / Spec</p>
+        <input type="text" id="subName" placeholder="e.g. French limestone treads">
+      </div>
+      <div>
+        <p class="lbl">Vendor</p>
+        <input type="text" id="subVendor" placeholder="e.g. Chesney USA">
+      </div>
+      <div>
+        <p class="lbl">Status</p>
+        <select id="subStatus">
+          <option value="submitted">Submitted</option>
+          <option value="approved">Approved</option>
+          <option value="revised">Revised</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <p class="lbl">Notes</p>
+      <textarea id="subNotes" placeholder="Any clarifications, dimensions, finish call-outs…"></textarea>
+    </div>
+    <button class="btn green" id="subSave">Add submittal</button>
+  </div>
+
+  <table class="sub-table" id="subTable">
+    <thead><tr><th>Material</th><th>Vendor</th><th>Status</th><th>Notes</th><th></th></tr></thead>
+    <tbody id="subBody"></tbody>
+  </table>
+  <div id="subEmpty" class="empty" style="display:none;margin-top:14px">No submittals yet. <span class="hint">Add the first one above.</span></div>
+</div></section>
+
+<!-- ============== CLIENT REPORT ============== -->
+<section class="panel" id="panel-report"><div class="container">
+  <div class="section-head">
+    <div class="section-num">VI</div>
+    <h2 class="section-title">Client <em>Report</em></h2>
+    <div class="section-act"><button class="btn gold" id="exportReport">Export to Word</button></div>
+    <p class="section-sub">A client-ready document in NNA's voice. Pick the project, the dates, what to include — the cover narrative reads like the brand.</p>
+  </div>
+
+  <div class="report-builder">
+    <aside class="report-side">
+      <div class="field">
+        <p class="lbl">Project</p>
+        <select id="reportProject"></select>
+      </div>
+      <div class="field-row" style="grid-template-columns:1fr 1fr">
+        <div>
+          <p class="lbl">From</p>
+          <input type="date" id="reportFrom">
+        </div>
+        <div>
+          <p class="lbl">To</p>
+          <input type="date" id="reportTo">
+        </div>
+      </div>
+      <div class="field">
+        <p class="lbl">Cover narrative</p>
+        <textarea id="reportCover" placeholder="A short paragraph in NNA's voice. Hit /nna-client-report in Claude Code to draft one — the skill will return a museum-placard cover that fits this report exactly." style="min-height:160px"></textarea>
+        <p class="hint">Tip: run <b>/nna-client-report</b> in Claude Code with the project name and a couple of recent milestones — it returns a draft in NNA voice you can paste here.</p>
+      </div>
+      <div class="field">
+        <p class="lbl">Include</p>
+        <label style="display:flex;gap:8px;align-items:center;font-size:15px"><input type="checkbox" id="reportIncLogs" checked> Daily logs</label>
+        <label style="display:flex;gap:8px;align-items:center;font-size:15px;margin-top:6px"><input type="checkbox" id="reportIncPhotos" checked> Photos</label>
+      </div>
+    </aside>
+    <div class="report-preview" id="reportPreview"></div>
+  </div>
+</div></section>
+
+<!-- ============== CREW & TRADES ============== -->
+<section class="panel" id="panel-crew"><div class="container">
+  <div class="section-head">
+    <div class="section-num">VII</div>
+    <h2 class="section-title">Crew &amp; <em>Trades</em></h2>
+    <p class="section-sub">The people on site and the partners we call. Edit freely — both the Field view and the Daily Log read from this list.</p>
+  </div>
+
+  <h3 class="lbl" style="margin-top:8px">In-house crew</h3>
+  <div id="crewGrid" class="crew-grid"></div>
+
+  <div class="add-inline" style="margin-bottom:36px">
+    <div class="row" style="grid-template-columns:1fr auto">
+      <input type="text" id="crewNew" placeholder="Add a name (e.g. Charlie)">
+      <button class="btn green" id="crewAdd">Add</button>
+    </div>
+  </div>
+
+  <h3 class="lbl">Trade partners</h3>
+  <div id="tradeGrid" class="trade-grid"></div>
+
+  <div class="add-inline">
+    <h4>Add a trade partner</h4>
+    <div class="field-row">
+      <input type="text" id="tradeRole" placeholder="Trade (e.g. Architectural Stone)">
+      <input type="text" id="tradeCompany" placeholder="Company / firm">
+      <input type="text" id="tradeContact" placeholder="Contact + phone / email">
+    </div>
+    <button class="btn green" id="tradeAdd">Add partner</button>
+  </div>
+</div></section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+
+// ============== STORAGE ==============
+var NS = 'nna-workspace.v1';
+function load(k, def){ try{ var v = localStorage.getItem(NS+'.'+k); return v? JSON.parse(v): def; }catch(e){ return def; } }
+function save(k, v){ localStorage.setItem(NS+'.'+k, JSON.stringify(v)); }
+function uid(){ return Math.random().toString(36).slice(2,10); }
+
+var TAGS = ['Framing','Stone','Millwork','Mech','Site','Exterior','Interior','Detail'];
+
+// initial seed only on first ever load
+if(!localStorage.getItem(NS+'.seeded')){
+  if(!load('projects',null)) save('projects',[
+    {id:uid(), addr:'2500 Gordon', phase:'Stone & Trim', createdAt:Date.now()-(86400000*40)},
+    {id:uid(), addr:'2490 Gordon', phase:'Framing', createdAt:Date.now()-(86400000*12)}
+  ]);
+  if(!load('crew',null)) save('crew',['Charlie','Chris','Dave']);
+  if(!load('trades',null)) save('trades',[
+    {id:uid(), trade:'Architecture', company:'Stofft Cooney Architects', contact:'@stofftcooneyarchitects'},
+    {id:uid(), trade:'Photos', company:'John Eder', contact:'@JohnEderPhoto'}
+  ]);
+  if(!load('punch',null)) save('punch',[]);
+  if(!load('submittals',null)) save('submittals',[]);
+  if(!load('photos',null)) save('photos',[]);
+  if(!load('logs',null)) save('logs',[]);
+  localStorage.setItem(NS+'.seeded','1');
+}
+
+var state = {
+  projects: load('projects',[]),
+  logs: load('logs',[]),
+  photos: load('photos',[]),
+  punch: load('punch',[]),
+  submittals: load('submittals',[]),
+  crew: load('crew',[]),
+  trades: load('trades',[]),
+  activeProject: '',
+  photoFilter: {search:'', tags:new Set()},
+  punchTradeFilter: '',
+  selectedPhotos: new Set(),
+  lbIndex: -1,
+  todayProject: '',
+  todaySelectedCrew: new Set(),
+  todayPhotos: []
+};
+
+function persist(){ save('projects',state.projects); save('logs',state.logs); save('photos',state.photos); save('punch',state.punch); save('submittals',state.submittals); save('crew',state.crew); save('trades',state.trades); }
+
+function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]);}); }
+function fmtDate(iso){ if(!iso) return ''; var p=iso.split('-'); var dt=new Date(+p[0],+p[1]-1,+p[2]); return dt.toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'}); }
+function relTime(t){ if(!t) return '—'; var d=(Date.now()-t)/86400000; if(d<1) return 'today'; if(d<2) return 'yesterday'; if(d<31) return Math.floor(d)+'d ago'; return Math.floor(d/30)+'mo ago'; }
+function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show')},2400); }
+
+// ============== TABS ==============
+document.querySelectorAll('nav.tabs button').forEach(function(b){
+  b.onclick = function(){
+    document.querySelectorAll('nav.tabs button').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');
+    document.querySelectorAll('section.panel').forEach(function(p){p.classList.remove('on')});
+    document.getElementById('panel-'+b.dataset.tab).classList.add('on');
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+});
+
+// ============== PROJECT SELECTOR ==============
+function renderProjectSelect(){
+  var sel = document.getElementById('projectSelect');
+  var lbSel = document.getElementById('lbProject');
+  var repSel = document.getElementById('reportProject');
+  var todaySel = document.getElementById('todayProject');
+  var activeOpts = state.projects.filter(function(p){return !p.archived}).map(function(p){
+    return '<option value="'+esc(p.id)+'">'+esc(p.addr)+'</option>';
+  }).join('');
+  sel.innerHTML = '<option value="">— All projects —</option>' + activeOpts;
+  lbSel.innerHTML = '<option value="">— All projects —</option>' + activeOpts;
+  repSel.innerHTML = activeOpts;
+  var prev = state.todayProject || todaySel.value;
+  todaySel.innerHTML = '<option value="" disabled '+(prev?'':'selected')+'>Choose a project…</option>' + activeOpts + '<option value="__add">＋ Add a project…</option>';
+  if(prev && prev!=='__add') todaySel.value = prev;
+  sel.value = state.activeProject;
+  if(repSel.options.length>0 && !repSel.value) repSel.value = repSel.options[0].value;
+}
+document.getElementById('projectSelect').addEventListener('change', function(e){
+  state.activeProject = e.target.value;
+  renderAll();
+});
+
+// ============== TODAY TAB ==============
+var todayDateEl = document.getElementById('todayDate');
+todayDateEl.value = new Date().toISOString().slice(0,10);
+
+var todayProjSel = document.getElementById('todayProject');
+var todayProjNew = document.getElementById('todayProjectNew');
+todayProjSel.addEventListener('change', function(){
+  if(todayProjSel.value === '__add'){
+    todayProjNew.style.display = 'block';
+    todayProjNew.focus();
+    state.todayProject = '';
+  } else {
+    todayProjNew.style.display = 'none';
+    state.todayProject = todayProjSel.value;
+  }
+  updateTodayPreview();
+});
+todayProjNew.addEventListener('blur', function(){
+  var addr = todayProjNew.value.trim();
+  if(addr){
+    var existing = state.projects.find(function(p){return p.addr.toLowerCase()===addr.toLowerCase()});
+    if(existing){ state.todayProject = existing.id; }
+    else {
+      var p = {id:uid(), addr:addr, phase:'Active', createdAt:Date.now()};
+      state.projects.push(p);
+      state.todayProject = p.id;
+    }
+    todayProjNew.value = '';
+    todayProjNew.style.display = 'none';
+    persist(); renderProjectSelect(); updateTodayPreview();
+  }
+});
+
+function renderTodayCrew(){
+  var el = document.getElementById('todayCrew');
+  el.innerHTML = '';
+  state.crew.forEach(function(name){
+    var c = document.createElement('div');
+    c.className = 'chip' + (state.todaySelectedCrew.has(name)?' on':'');
+    c.textContent = name;
+    c.onclick = function(){
+      if(state.todaySelectedCrew.has(name)) state.todaySelectedCrew.delete(name); else state.todaySelectedCrew.add(name);
+      renderTodayCrew(); updateTodayPreview();
+    };
+    el.appendChild(c);
+  });
+  var add = document.createElement('div');
+  add.className = 'chip add';
+  add.textContent = '＋ Add person';
+  add.onclick = function(){
+    var n = prompt('Name of person on site:');
+    if(n && n.trim()){
+      n = n.trim();
+      if(state.crew.indexOf(n)<0) state.crew.push(n);
+      state.todaySelectedCrew.add(n);
+      persist(); renderTodayCrew(); renderCrew(); updateTodayPreview();
+    }
+  };
+  el.appendChild(add);
+}
+
+document.getElementById('todayPhotoInput').addEventListener('change', function(e){
+  var files = Array.from(e.target.files||[]);
+  var pending = files.length;
+  if(!pending) return;
+  files.forEach(function(f){
+    var r = new FileReader();
+    r.onload = function(){
+      state.todayPhotos.push({name:f.name, dataURL:r.result});
+      if(--pending===0){ renderTodayThumbs(); updateTodayPreview(); }
+    };
+    r.readAsDataURL(f);
+  });
+  e.target.value='';
+});
+function renderTodayThumbs(){
+  var el = document.getElementById('todayThumbs');
+  el.innerHTML = '';
+  state.todayPhotos.forEach(function(p,i){
+    var t = document.createElement('div'); t.className='t';
+    var im = document.createElement('img'); im.src = p.dataURL; t.appendChild(im);
+    var x = document.createElement('button'); x.className='x'; x.innerHTML='×';
+    x.onclick = function(){ state.todayPhotos.splice(i,1); renderTodayThumbs(); updateTodayPreview(); };
+    t.appendChild(x); el.appendChild(t);
+  });
+}
+
+document.getElementById('todayNotes').addEventListener('input', updateTodayPreview);
+
+function updateTodayPreview(){
+  var p = state.projects.find(function(x){return x.id===state.todayProject});
+  var pj = p ? p.addr : '';
+  var ppl = Array.from(state.todaySelectedCrew);
+  var notes = document.getElementById('todayNotes').value.trim();
+  var ready = pj.length>0;
+  document.getElementById('finishDayBtn').disabled = !ready;
+  var preview = document.getElementById('todayPreview');
+  if(!ready){ preview.innerHTML = 'Pick a project to get started.'; return; }
+  preview.innerHTML =
+    '<b>'+esc(pj)+'</b> · '+fmtDate(todayDateEl.value)+'<br>'+
+    (ppl.length? 'On site: <b>'+ppl.map(esc).join(', ')+'</b><br>' : '') +
+    state.todayPhotos.length+' photo'+(state.todayPhotos.length===1?'':'s')+
+    (notes? ' · notes added' : '');
+}
+todayDateEl.addEventListener('change', updateTodayPreview);
+
+document.getElementById('finishDayBtn').onclick = function(){
+  var p = state.projects.find(function(x){return x.id===state.todayProject});
+  if(!p) return;
+  var pj = p.addr;
+  var ppl = Array.from(state.todaySelectedCrew);
+  var notes = document.getElementById('todayNotes').value.trim();
+  var dateVal = todayDateEl.value;
+
+  // Save photos to shared library + create log entry
+  var photoIds = state.todayPhotos.map(function(ph){
+    var id = uid();
+    state.photos.push({
+      id:id, projectId:state.todayProject, dataURL:ph.dataURL,
+      tags:[], caption:'', date:dateVal, createdAt:Date.now(), source:'field'
+    });
+    return id;
+  });
+  state.logs.push({
+    id:uid(), projectId:state.todayProject, date:dateVal,
+    crew:ppl, notes:notes, photoIds:photoIds, createdAt:Date.now()
+  });
+  persist();
+
+  // Generate Word doc (same pipeline as the existing Daily Log)
+  var imgHtml = state.todayPhotos.map(function(ph){
+    return '<div style="margin:0 0 14px"><img src="'+ph.dataURL+'" style="width:420px;max-width:100%;border:1px solid #ddd"/></div>';
+  }).join('');
+  var body =
+    '<div style="font-family:Georgia,serif;color:#1c1c1c">'+
+    '<p style="font-family:Arial,sans-serif;font-size:10px;letter-spacing:3px;color:#777;text-transform:uppercase;margin:0">Newbury North Associates</p>'+
+    '<h1 style="font-size:22px;font-weight:normal;margin:4px 0 2px">Daily Job-Site Log</h1>'+
+    '<p style="color:#6f6147;font-style:italic;margin:0 0 18px">Tell the story — the materials, the details.</p>'+
+    '<hr style="border:none;border-top:1px solid #ccc"/>'+
+    '<p style="font-family:Arial,sans-serif"><b>Project:</b> '+esc(pj)+'<br>'+
+    '<b>Date:</b> '+fmtDate(dateVal)+'<br>'+
+    '<b>On site:</b> '+(ppl.length?esc(ppl.join(', ')):'—')+'</p>'+
+    '<h3 style="font-family:Arial,sans-serif;margin:18px 0 6px">Milestones &amp; fun facts</h3>'+
+    '<p style="white-space:pre-wrap">'+(notes?esc(notes):'—')+'</p>'+
+    '<h3 style="font-family:Arial,sans-serif;margin:22px 0 10px">Photos ('+state.todayPhotos.length+')</h3>'+
+    (imgHtml||'<p style="color:#888">No photos added.</p>')+
+    '</div>';
+  var html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"+
+    "<head><meta charset='utf-8'><title>NNA Daily Log</title></head><body>"+body+"</body></html>";
+  var blob = new Blob(['﻿', html], {type:'application/msword'});
+  var safe = pj.replace(/[^a-z0-9 ]/gi,'').trim() || 'Project';
+  var fname = 'NNA Daily Log — '+safe+' — '+dateVal+'.doc';
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fname;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1500);
+
+  // Reset
+  state.todayPhotos = [];
+  state.todaySelectedCrew = new Set();
+  document.getElementById('todayNotes').value = '';
+  renderTodayThumbs(); renderTodayCrew(); updateTodayPreview(); renderAll();
+  toast('Log filed — doc downloaded');
+};
+
+// ============== PROJECTS ==============
+document.getElementById('newProjBtn').onclick = function(){
+  var f = document.getElementById('newProjForm');
+  f.style.display = f.style.display==='none'?'block':'none';
+  if(f.style.display==='block') document.getElementById('newProjAddr').focus();
+};
+document.getElementById('newProjSave').onclick = function(){
+  var addr = document.getElementById('newProjAddr').value.trim();
+  if(!addr){ toast('Address required'); return; }
+  var phase = document.getElementById('newProjPhase').value.trim() || 'Active';
+  state.projects.push({id:uid(), addr:addr, phase:phase, createdAt:Date.now()});
+  document.getElementById('newProjAddr').value='';
+  document.getElementById('newProjPhase').value='';
+  document.getElementById('newProjForm').style.display='none';
+  persist(); renderAll(); toast('Project added');
+};
+
+function renderProjects(){
+  var grid = document.getElementById('projGrid');
+  var empty = document.getElementById('projEmpty');
+  var list = state.projects;
+  if(!list.length){ grid.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  grid.innerHTML = list.map(function(p){
+    var photoCount = state.photos.filter(function(ph){return ph.projectId===p.id}).length;
+    var logCount = state.logs.filter(function(l){return l.projectId===p.id}).length;
+    var lastLog = state.logs.filter(function(l){return l.projectId===p.id}).sort(function(a,b){return b.createdAt-a.createdAt})[0];
+    return '<div class="proj-card" data-id="'+esc(p.id)+'">'+
+      (p.archived?'<div class="archived">Archived</div>':'')+
+      '<div class="phase">'+esc(p.phase||'Active')+'</div>'+
+      '<h3 class="addr">'+esc(p.addr)+'</h3>'+
+      '<div class="meta"><span><b>'+photoCount+'</b> photos</span><span><b>'+logCount+'</b> logs</span><span>last: '+(lastLog?relTime(lastLog.createdAt):'—')+'</span></div>'+
+      '<div class="acts">'+
+      '<button class="btn green sm" data-act="open">Open</button>'+
+      '<button class="btn ghost sm" data-act="archive">'+(p.archived?'Unarchive':'Archive')+'</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  grid.querySelectorAll('.proj-card').forEach(function(card){
+    var id = card.dataset.id;
+    card.querySelector('[data-act="open"]').onclick = function(){
+      state.activeProject = id;
+      document.getElementById('projectSelect').value = id;
+      document.querySelector('nav.tabs button[data-tab="timeline"]').click();
+      renderAll();
+    };
+    card.querySelector('[data-act="archive"]').onclick = function(){
+      var p = state.projects.find(function(x){return x.id===id});
+      p.archived = !p.archived;
+      persist(); renderAll();
+    };
+  });
+}
+
+// ============== TIMELINE ==============
+function renderTimeline(){
+  var el = document.getElementById('timeline');
+  var pid = state.activeProject;
+  var logs = state.logs.filter(function(l){return !pid || l.projectId===pid}).sort(function(a,b){return b.createdAt-a.createdAt});
+  if(!logs.length){
+    el.innerHTML = '<div class="empty">No timeline entries '+(pid?'for this project':'yet')+'.<span class="hint">Daily logs filed in the Field view appear here, newest first.</span></div>';
+    return;
+  }
+  var grouped = {};
+  logs.forEach(function(l){ (grouped[l.date]=grouped[l.date]||[]).push(l); });
+  var days = Object.keys(grouped).sort().reverse();
+  el.innerHTML = '<div class="timeline">'+days.map(function(d){
+    return '<div class="tl-day"><div class="date">'+fmtDate(d)+'</div>'+
+      grouped[d].map(function(l){
+        var proj = state.projects.find(function(p){return p.id===l.projectId});
+        var photos = state.photos.filter(function(ph){return l.photoIds && l.photoIds.indexOf(ph.id)>=0});
+        return '<div class="tl-entry">'+
+          '<div class="who">'+esc(proj?proj.addr:'')+(l.crew&&l.crew.length?' · '+esc(l.crew.join(', ')):'')+'</div>'+
+          (l.notes?'<p class="notes">'+esc(l.notes)+'</p>':'')+
+          (photos.length?'<div class="photos">'+photos.map(function(p){return '<img src="'+p.dataURL+'" alt="">'}).join('')+'</div>':'')+
+        '</div>';
+      }).join('')+
+    '</div>';
+  }).join('')+'</div>';
+}
+
+// ============== PHOTO LIBRARY ==============
+function renderTagFilter(){
+  var el = document.getElementById('tagFilter');
+  el.innerHTML = TAGS.map(function(t){
+    var on = state.photoFilter.tags.has(t);
+    return '<span class="tag-chip'+(on?' on':'')+'" data-tag="'+esc(t)+'">'+esc(t)+'</span>';
+  }).join('');
+  el.querySelectorAll('.tag-chip').forEach(function(c){
+    c.onclick = function(){
+      var t = c.dataset.tag;
+      if(state.photoFilter.tags.has(t)) state.photoFilter.tags.delete(t); else state.photoFilter.tags.add(t);
+      renderPhotos(); renderTagFilter();
+    };
+  });
+}
+document.getElementById('photoSearch').addEventListener('input', function(e){
+  state.photoFilter.search = e.target.value.toLowerCase();
+  renderPhotos();
+});
+
+function filteredPhotos(){
+  var pid = state.activeProject;
+  return state.photos.filter(function(p){
+    if(pid && p.projectId !== pid) return false;
+    if(state.photoFilter.search && (!p.caption || p.caption.toLowerCase().indexOf(state.photoFilter.search)<0)) return false;
+    if(state.photoFilter.tags.size){
+      var ok = false;
+      state.photoFilter.tags.forEach(function(t){ if(p.tags && p.tags.indexOf(t)>=0) ok=true; });
+      if(!ok) return false;
+    }
+    return true;
+  });
+}
+
+function renderPhotos(){
+  var grid = document.getElementById('photoGrid');
+  var empty = document.getElementById('photoEmpty');
+  var list = filteredPhotos();
+  if(!list.length){ grid.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  grid.innerHTML = list.map(function(p,i){
+    var sel = state.selectedPhotos.has(p.id);
+    return '<div class="photo-cell'+(sel?' sel':'')+'" data-id="'+esc(p.id)+'" data-i="'+i+'">'+
+      '<div class="checkbox">'+(sel?'✓':'')+'</div>'+
+      '<img src="'+p.dataURL+'" alt="">'+
+      (p.tags&&p.tags.length?'<div class="tags">'+p.tags.slice(0,3).map(function(t){return '<span>'+esc(t)+'</span>'}).join('')+'</div>':'')+
+    '</div>';
+  }).join('');
+  grid.querySelectorAll('.photo-cell').forEach(function(cell){
+    var id = cell.dataset.id;
+    cell.onclick = function(e){
+      if(e.shiftKey || e.target.classList.contains('checkbox')){
+        if(state.selectedPhotos.has(id)) state.selectedPhotos.delete(id); else state.selectedPhotos.add(id);
+        renderPhotos();
+      } else {
+        openLightbox(parseInt(cell.dataset.i,10));
+      }
+    };
+  });
+}
+
+document.getElementById('photoUpload').addEventListener('change', function(e){
+  var files = Array.from(e.target.files||[]);
+  if(!files.length) return;
+  if(!state.activeProject){ toast('Pick a project first'); e.target.value=''; return; }
+  var pending = files.length;
+  files.forEach(function(f){
+    var r = new FileReader();
+    r.onload = function(){
+      state.photos.push({id:uid(), projectId:state.activeProject, dataURL:r.result, tags:[], caption:'', date:new Date().toISOString().slice(0,10), createdAt:Date.now(), source:'upload'});
+      if(--pending===0){ persist(); renderAll(); toast(files.length+' photo'+(files.length===1?'':'s')+' uploaded'); }
+    };
+    r.readAsDataURL(f);
+  });
+  e.target.value='';
+});
+
+document.getElementById('ccImport').addEventListener('change', function(e){
+  var file = e.target.files[0];
+  if(!file) return;
+  if(!state.activeProject){ toast('Pick a project first'); e.target.value=''; return; }
+  toast('Reading CompanyCam ZIP…');
+  JSZip.loadAsync(file).then(function(zip){
+    var imgs = [];
+    zip.forEach(function(path, entry){
+      if(entry.dir) return;
+      if(/\.(jpe?g|png|heic|webp)$/i.test(path)) imgs.push({path:path, entry:entry});
+    });
+    if(!imgs.length){ toast('No images found in ZIP'); return; }
+    var done = 0;
+    imgs.forEach(function(it){
+      it.entry.async('base64').then(function(b64){
+        var mime = /\.png$/i.test(it.path)?'png':'jpeg';
+        state.photos.push({
+          id:uid(), projectId:state.activeProject,
+          dataURL:'data:image/'+mime+';base64,'+b64,
+          tags:[], caption:it.path.split('/').pop().replace(/\.\w+$/,''),
+          date:new Date().toISOString().slice(0,10), createdAt:Date.now(), source:'companycam'
+        });
+        done++;
+        if(done===imgs.length){ persist(); renderAll(); toast('Imported '+done+' photos from CompanyCam'); }
+      });
+    });
+  }).catch(function(err){ toast('ZIP error: '+err.message); });
+  e.target.value='';
+});
+
+document.getElementById('sendLaurenBtn').onclick = function(){
+  if(!state.selectedPhotos.size){ toast('Select photos first (tap the checkbox or shift-click)'); return; }
+  var picks = state.photos.filter(function(p){return state.selectedPhotos.has(p.id)});
+  var manifest = {
+    sentAt: new Date().toISOString(),
+    projectId: state.activeProject,
+    photos: picks.map(function(p){return {id:p.id, caption:p.caption, tags:p.tags, date:p.date}})
+  };
+  // also stash to a localStorage key the Post Approvals page can read
+  localStorage.setItem('nna-post-queue', JSON.stringify(picks.map(function(p){return {dataURL:p.dataURL,caption:p.caption,tags:p.tags,project:state.projects.find(function(x){return x.id===state.activeProject})&&state.projects.find(function(x){return x.id===state.activeProject}).addr}})));
+  // export a manifest
+  var blob = new Blob([JSON.stringify(manifest,null,2)],{type:'application/json'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'nna-to-lauren-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href)},1500);
+  state.selectedPhotos = new Set();
+  renderPhotos();
+  toast('Manifest downloaded · queue cached for Post Approvals page');
+};
+
+// lightbox
+function openLightbox(i){
+  var list = filteredPhotos();
+  state.lbIndex = i;
+  if(i<0 || i>=list.length) return;
+  var p = list[i];
+  document.getElementById('lbImg').src = p.dataURL;
+  document.getElementById('lbCaption').value = p.caption || '';
+  document.getElementById('lbProject').value = p.projectId || '';
+  var tagsEl = document.getElementById('lbTags');
+  tagsEl.innerHTML = TAGS.map(function(t){
+    var on = p.tags && p.tags.indexOf(t)>=0;
+    return '<span class="tag-chip'+(on?' on':'')+'" data-tag="'+esc(t)+'">'+esc(t)+'</span>';
+  }).join('');
+  tagsEl.querySelectorAll('.tag-chip').forEach(function(c){
+    c.onclick = function(){ c.classList.toggle('on'); };
+  });
+  document.getElementById('lightbox').classList.add('on');
+  document.getElementById('lbSave').onclick = function(){
+    p.caption = document.getElementById('lbCaption').value.trim();
+    p.projectId = document.getElementById('lbProject').value;
+    p.tags = Array.from(tagsEl.querySelectorAll('.tag-chip.on')).map(function(c){return c.dataset.tag});
+    persist(); renderPhotos();
+    closeLightbox();
+    toast('Saved');
+  };
+  document.getElementById('lbDelete').onclick = function(){
+    if(!confirm('Delete this photo?')) return;
+    state.photos = state.photos.filter(function(x){return x.id!==p.id});
+    persist(); renderPhotos(); closeLightbox(); toast('Deleted');
+  };
+}
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('on'); }
+document.getElementById('lbClose').onclick = closeLightbox;
+document.getElementById('lbPrev').onclick = function(){ if(state.lbIndex>0) openLightbox(state.lbIndex-1); };
+document.getElementById('lbNext').onclick = function(){ var list=filteredPhotos(); if(state.lbIndex<list.length-1) openLightbox(state.lbIndex+1); };
+document.addEventListener('keydown', function(e){
+  if(!document.getElementById('lightbox').classList.contains('on')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowLeft') document.getElementById('lbPrev').click();
+  if(e.key==='ArrowRight') document.getElementById('lbNext').click();
+});
+
+// ============== PUNCH LIST ==============
+document.getElementById('newPunchBtn').onclick = function(){
+  if(!state.activeProject){ toast('Pick a project first'); return; }
+  var f = document.getElementById('newPunchForm');
+  f.style.display = f.style.display==='none'?'block':'none';
+  if(f.style.display==='block') document.getElementById('punchTitle').focus();
+};
+document.getElementById('punchSave').onclick = function(){
+  var title = document.getElementById('punchTitle').value.trim();
+  if(!title){ toast('Title required'); return; }
+  state.punch.push({
+    id:uid(), projectId:state.activeProject, title:title,
+    trade:document.getElementById('punchTrade').value.trim()||'General',
+    priority:document.getElementById('punchPrio').value, status:'open', createdAt:Date.now()
+  });
+  document.getElementById('punchTitle').value='';
+  document.getElementById('punchTrade').value='';
+  document.getElementById('newPunchForm').style.display='none';
+  persist(); renderPunch(); toast('Item added');
+};
+
+function renderPunchTradeFilter(){
+  var el = document.getElementById('punchTradeFilter');
+  var pid = state.activeProject;
+  var trades = Array.from(new Set(state.punch.filter(function(p){return !pid || p.projectId===pid}).map(function(p){return p.trade}))).sort();
+  el.innerHTML = '<span class="tag-chip'+(state.punchTradeFilter===''?' on':'')+'" data-trade="">All trades</span>' + trades.map(function(t){
+    return '<span class="tag-chip gold'+(state.punchTradeFilter===t?' on':'')+'" data-trade="'+esc(t)+'">'+esc(t)+'</span>';
+  }).join('');
+  el.querySelectorAll('.tag-chip').forEach(function(c){ c.onclick = function(){ state.punchTradeFilter = c.dataset.trade; renderPunch(); }; });
+}
+
+function renderPunch(){
+  var pid = state.activeProject;
+  var grid = document.getElementById('punchGrid');
+  var empty = document.getElementById('punchEmpty');
+  var list = state.punch.filter(function(p){
+    if(pid && p.projectId !== pid) return false;
+    if(state.punchTradeFilter && p.trade !== state.punchTradeFilter) return false;
+    return true;
+  }).sort(function(a,b){
+    if(a.status!==b.status) return a.status==='done'?1:-1;
+    var ord = {high:0, med:1, low:2};
+    return (ord[a.priority]||1) - (ord[b.priority]||1);
+  });
+  renderPunchTradeFilter();
+  if(!list.length){ grid.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  grid.innerHTML = list.map(function(p){
+    var proj = state.projects.find(function(x){return x.id===p.projectId});
+    return '<div class="punch-item'+(p.status==='done'?' done':'')+'" data-id="'+esc(p.id)+'">'+
+      '<div class="punch-check" data-act="toggle">'+(p.status==='done'?'✓':'')+'</div>'+
+      '<div class="punch-meta"><div class="title">'+esc(p.title)+'</div>'+
+        '<div class="sub"><b>'+esc(p.trade)+'</b>'+(proj?' · '+esc(proj.addr):'')+'</div></div>'+
+      '<div class="punch-prio '+esc(p.priority)+'">'+(p.priority==='high'?'High':p.priority==='med'?'Med':'Low')+'</div>'+
+      '<button class="btn danger sm" data-act="del">Delete</button>'+
+    '</div>';
+  }).join('');
+  grid.querySelectorAll('.punch-item').forEach(function(it){
+    var id = it.dataset.id;
+    it.querySelector('[data-act="toggle"]').onclick = function(){
+      var p = state.punch.find(function(x){return x.id===id});
+      p.status = p.status==='done'?'open':'done';
+      persist(); renderPunch();
+    };
+    it.querySelector('[data-act="del"]').onclick = function(){
+      state.punch = state.punch.filter(function(x){return x.id!==id});
+      persist(); renderPunch();
+    };
+  });
+}
+
+// ============== SUBMITTALS ==============
+document.getElementById('newSubBtn').onclick = function(){
+  if(!state.activeProject){ toast('Pick a project first'); return; }
+  var f = document.getElementById('newSubForm');
+  f.style.display = f.style.display==='none'?'block':'none';
+  if(f.style.display==='block') document.getElementById('subName').focus();
+};
+document.getElementById('subSave').onclick = function(){
+  var name = document.getElementById('subName').value.trim();
+  if(!name){ toast('Material name required'); return; }
+  state.submittals.push({
+    id:uid(), projectId:state.activeProject, name:name,
+    vendor:document.getElementById('subVendor').value.trim(),
+    status:document.getElementById('subStatus').value,
+    notes:document.getElementById('subNotes').value.trim(),
+    createdAt:Date.now()
+  });
+  ['subName','subVendor','subNotes'].forEach(function(i){document.getElementById(i).value=''});
+  document.getElementById('newSubForm').style.display='none';
+  persist(); renderSubs(); toast('Submittal added');
+};
+
+function renderSubs(){
+  var pid = state.activeProject;
+  var body = document.getElementById('subBody');
+  var empty = document.getElementById('subEmpty');
+  var list = state.submittals.filter(function(s){return !pid || s.projectId===pid}).sort(function(a,b){return b.createdAt-a.createdAt});
+  if(!list.length){ body.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  body.innerHTML = list.map(function(s){
+    return '<tr data-id="'+esc(s.id)+'">'+
+      '<td><b>'+esc(s.name)+'</b></td>'+
+      '<td>'+esc(s.vendor||'—')+'</td>'+
+      '<td><span class="sub-status '+esc(s.status)+'">'+esc(s.status)+'</span></td>'+
+      '<td>'+esc(s.notes||'')+'</td>'+
+      '<td><button class="btn ghost sm" data-act="cycle">Next status</button> <button class="btn danger sm" data-act="del">×</button></td>'+
+    '</tr>';
+  }).join('');
+  body.querySelectorAll('tr').forEach(function(tr){
+    var id = tr.dataset.id;
+    tr.querySelector('[data-act="cycle"]').onclick = function(){
+      var s = state.submittals.find(function(x){return x.id===id});
+      var order = ['submitted','approved','revised','rejected'];
+      s.status = order[(order.indexOf(s.status)+1)%order.length];
+      persist(); renderSubs();
+    };
+    tr.querySelector('[data-act="del"]').onclick = function(){
+      state.submittals = state.submittals.filter(function(x){return x.id!==id});
+      persist(); renderSubs();
+    };
+  });
+}
+
+// ============== CLIENT REPORT ==============
+function renderReportPreview(){
+  var pid = document.getElementById('reportProject').value;
+  var from = document.getElementById('reportFrom').value;
+  var to = document.getElementById('reportTo').value;
+  var incLogs = document.getElementById('reportIncLogs').checked;
+  var incPhotos = document.getElementById('reportIncPhotos').checked;
+  var cover = document.getElementById('reportCover').value.trim();
+  var proj = state.projects.find(function(p){return p.id===pid});
+  if(!proj){ document.getElementById('reportPreview').innerHTML = '<div class="empty">Pick a project to preview the report.</div>'; return; }
+
+  function inRange(d){ if(from && d<from) return false; if(to && d>to) return false; return true; }
+  var logs = state.logs.filter(function(l){return l.projectId===pid && inRange(l.date)}).sort(function(a,b){return a.date.localeCompare(b.date)});
+  var photos = state.photos.filter(function(p){return p.projectId===pid && inRange(p.date)});
+
+  var html = '<div class="kicker">Newbury North Associates</div>'+
+    '<h1>'+esc(proj.addr)+'</h1>'+
+    '<p class="dek">'+(from||'—')+' through '+(to||'—')+(proj.phase?' · '+esc(proj.phase):'')+'</p>'+
+    '<hr>'+
+    (cover?'<div class="cover">'+esc(cover)+'</div><hr>':'<div class="cover" style="color:#aaa;font-style:italic">[ Cover narrative — paste from /nna-client-report ]</div><hr>');
+  if(incLogs && logs.length){
+    html += '<h3 class="lbl" style="margin-top:18px">Daily entries</h3>';
+    logs.forEach(function(l){
+      html += '<div style="margin:0 0 14px"><p class="lbl" style="font-size:9px">'+fmtDate(l.date)+(l.crew&&l.crew.length?' · '+esc(l.crew.join(', ')):'')+'</p>'+
+        (l.notes?'<p style="margin:4px 0 0">'+esc(l.notes)+'</p>':'')+'</div>';
+    });
+  }
+  if(incPhotos && photos.length){
+    html += '<h3 class="lbl" style="margin-top:18px">Photos</h3>'+
+      '<div class="photo-block">'+photos.map(function(p){return '<img src="'+p.dataURL+'" alt="">'}).join('')+'</div>';
+  }
+  document.getElementById('reportPreview').innerHTML = html;
+}
+['reportProject','reportFrom','reportTo','reportCover','reportIncLogs','reportIncPhotos'].forEach(function(id){
+  document.getElementById(id).addEventListener('input', renderReportPreview);
+  document.getElementById(id).addEventListener('change', renderReportPreview);
+});
+
+document.getElementById('exportReport').onclick = function(){
+  var pid = document.getElementById('reportProject').value;
+  var proj = state.projects.find(function(p){return p.id===pid});
+  if(!proj){ toast('Pick a project'); return; }
+  var preview = document.getElementById('reportPreview').innerHTML;
+  var body = '<div style="font-family:Georgia,serif;color:#1c1c1c;max-width:780px">'+preview+'</div>';
+  var html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"+
+    "<head><meta charset='utf-8'><title>NNA Report</title></head><body>"+body+"</body></html>";
+  var blob = new Blob(['﻿', html], {type:'application/msword'});
+  var safe = proj.addr.replace(/[^a-z0-9 ]/gi,'').trim() || 'Project';
+  var fname = 'NNA Report — '+safe+' — '+new Date().toISOString().slice(0,10)+'.doc';
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fname;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href)},1500);
+  toast('Word doc downloaded');
+};
+
+// ============== CREW & TRADES ==============
+function renderCrew(){
+  var grid = document.getElementById('crewGrid');
+  if(!state.crew.length){ grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No crew yet.</div>'; return; }
+  grid.innerHTML = state.crew.map(function(name,i){
+    return '<div class="crew-card"><span class="name">'+esc(name)+'</span><button class="rm" data-i="'+i+'">×</button></div>';
+  }).join('');
+  grid.querySelectorAll('.rm').forEach(function(b){ b.onclick = function(){ state.crew.splice(+b.dataset.i,1); persist(); renderCrew(); }; });
+}
+document.getElementById('crewAdd').onclick = function(){
+  var n = document.getElementById('crewNew').value.trim();
+  if(!n) return;
+  if(state.crew.indexOf(n)<0) state.crew.push(n);
+  document.getElementById('crewNew').value='';
+  persist(); renderCrew(); toast('Added');
+};
+
+function renderTrades(){
+  var grid = document.getElementById('tradeGrid');
+  if(!state.trades.length){ grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No trade partners yet.</div>'; return; }
+  grid.innerHTML = state.trades.map(function(t){
+    return '<div class="trade-card" data-id="'+esc(t.id)+'"><div class="trade">'+esc(t.trade)+'</div>'+
+      '<div class="co">'+esc(t.company)+'</div>'+
+      '<div class="ct">'+esc(t.contact||'')+'</div>'+
+      '<div class="acts"><button class="btn danger sm" data-act="del">Remove</button></div></div>';
+  }).join('');
+  grid.querySelectorAll('.trade-card').forEach(function(c){
+    var id = c.dataset.id;
+    c.querySelector('[data-act="del"]').onclick = function(){
+      state.trades = state.trades.filter(function(x){return x.id!==id});
+      persist(); renderTrades();
+    };
+  });
+}
+document.getElementById('tradeAdd').onclick = function(){
+  var role = document.getElementById('tradeRole').value.trim();
+  var co = document.getElementById('tradeCompany').value.trim();
+  if(!role || !co){ toast('Trade & company required'); return; }
+  state.trades.push({
+    id:uid(), trade:role, company:co,
+    contact:document.getElementById('tradeContact').value.trim()
+  });
+  ['tradeRole','tradeCompany','tradeContact'].forEach(function(i){document.getElementById(i).value=''});
+  persist(); renderTrades(); toast('Trade partner added');
+};
+
+// ============== INITIAL RENDER ==============
+function renderAll(){
+  state.projects = load('projects',state.projects);
+  state.logs = load('logs',state.logs);
+  state.photos = load('photos',state.photos);
+  state.punch = load('punch',state.punch);
+  state.crew = load('crew',state.crew);
+  renderProjectSelect();
+  renderTodayCrew();
+  renderTodayThumbs();
+  updateTodayPreview();
+  renderProjects();
+  renderTimeline();
+  renderTagFilter();
+  renderPhotos();
+  renderPunch();
+  renderSubs();
+  renderReportPreview();
+  renderCrew();
+  renderTrades();
+}
+renderAll();
+
+// reload data when window regains focus (Field view may have updated in another tab)
+window.addEventListener('focus', renderAll);
+window.addEventListener('storage', renderAll);
+
+})();
+</script>
+</body>
+</html>

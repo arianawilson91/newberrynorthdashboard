@@ -1,0 +1,10 @@
+run = "npx serve -l $PORT ."
+hidden = [".config", ".gitignore", "package-lock.json"]
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "npx serve -l $PORT ."]
+deploymentTarget = "static"
+publicDir = "."

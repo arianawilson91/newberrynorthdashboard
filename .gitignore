@@ -1,0 +1,23 @@
+# OS noise
+.DS_Store
+Thumbs.db
+*.swp
+
+# Editor
+.vscode/
+.idea/
+
+# Node (for serve)
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Replit
+.replit_history
+.upm/
+.config/
+.cache/
+
+# Local env
+.env
+.env.local
