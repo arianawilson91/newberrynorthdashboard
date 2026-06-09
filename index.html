@@ -229,6 +229,22 @@ textarea{resize:vertical;min-height:100px}
 .toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);background:var(--green);color:#fff;padding:13px 22px;border-radius:999px;font-family:var(--sans);font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:all .3s ease;z-index:80;box-shadow:0 8px 30px rgba(0,40,30,.3)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+/* ============== PASSWORD GATE ============== */
+.gate{position:fixed;inset:0;z-index:200;background:var(--green-deep);display:flex;align-items:center;justify-content:center;padding:30px}
+.gate.off{display:none}
+.gate-card{background:var(--cream);border:1px solid var(--gold);border-top:4px solid var(--gold);max-width:420px;width:100%;padding:42px 38px;box-shadow:0 30px 80px rgba(0,0,0,.45);text-align:center}
+.gate-card .mark{width:54px;height:54px;background:var(--green);color:#fff;border:1px solid rgba(255,255,255,.32);display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:.08em;margin:0 auto 22px}
+.gate-card .kicker{font-family:var(--display);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep);font-weight:500;margin-bottom:14px}
+.gate-card h1{font-family:var(--serif);font-weight:400;font-size:34px;color:var(--green-deep);margin:0 0 6px;line-height:1.1}
+.gate-card h1 em{font-style:italic;color:var(--gold-deep)}
+.gate-card .dek{font-family:var(--serif);font-style:italic;color:var(--graphite);font-size:16px;margin:0 0 28px}
+.gate-card input{width:100%;font-family:var(--serif);font-size:19px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-bottom:2px solid var(--gold);padding:14px 16px;outline:none;text-align:center;letter-spacing:.04em}
+.gate-card input:focus{border-bottom-color:var(--green)}
+.gate-card .err{font-family:var(--sans);font-size:13px;color:var(--clay);margin-top:10px;min-height:18px}
+.gate-card button{margin-top:18px;width:100%;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;background:var(--green);color:#fff;border:none;padding:15px 22px;cursor:pointer;transition:background .2s}
+.gate-card button:hover{background:var(--green-deep)}
+.gate-card .foot{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:22px;letter-spacing:.06em;text-transform:uppercase}
+
 /* ============== DEVICE BANNER ============== */
 .device-banner{background:var(--gold-soft);border-bottom:1px solid var(--gold);color:var(--gold-deep);font-family:var(--sans);font-size:12px;text-align:center;padding:8px 16px;letter-spacing:.02em}
 .device-banner b{color:var(--gold-deep)}
@@ -248,6 +264,21 @@ textarea{resize:vertical;min-height:100px}
 </style>
 </head>
 <body>
+
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="mark">NN</div>
+    <div class="kicker">Newbury North Associates</div>
+    <h1>Construction <em>Workspace</em></h1>
+    <p class="dek">Restricted to NNA team members. Enter the access password to continue.</p>
+    <form id="gateForm" autocomplete="off">
+      <input id="gatePw" type="password" placeholder="Access password" autofocus>
+      <div class="err" id="gateErr">&nbsp;</div>
+      <button type="submit">Enter</button>
+    </form>
+    <div class="foot">Ain Hub · FGCU</div>
+  </div>
+</div>
 
 <div class="device-banner">
   Data lives on <b>this device only</b>. Logs, photos, and punch items you file here aren't shared across phones or computers yet — team sync is coming.
@@ -562,6 +593,28 @@ textarea{resize:vertical;min-height:100px}
 <div class="toast" id="toast"></div>
 
 <script>
+// ============== PASSWORD GATE (client-side casual barrier) ==============
+(function(){
+  var PW = 'NNtest';
+  var KEY = 'nna-workspace.gate.ok';
+  var gate = document.getElementById('gate');
+  var form = document.getElementById('gateForm');
+  var input = document.getElementById('gatePw');
+  var err = document.getElementById('gateErr');
+  if(sessionStorage.getItem(KEY) === '1'){ gate.classList.add('off'); return; }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(input.value === PW){
+      sessionStorage.setItem(KEY, '1');
+      gate.classList.add('off');
+    } else {
+      err.textContent = 'Incorrect password.';
+      input.value = '';
+      input.focus();
+    }
+  });
+})();
+
 (function(){
 'use strict';
 
